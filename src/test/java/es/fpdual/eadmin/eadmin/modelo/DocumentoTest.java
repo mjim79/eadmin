@@ -19,7 +19,8 @@ public class DocumentoTest {
 	@Before
 	public void inicializarCadaTest() {
 		documento = 
-			new Documento(CODIGO_DOCUMENTO, NOMBRE_DOCUMENTO, FECHA_CREACION, DOCUMENTO_PUBLICO, EstadoDocumento.ACTIVO);
+			
+				new Documento(CODIGO_DOCUMENTO, NOMBRE_DOCUMENTO, FECHA_CREACION, DOCUMENTO_PUBLICO, EstadoDocumento.ACTIVO);
 	}
 	
 	@Test

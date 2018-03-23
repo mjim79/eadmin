@@ -15,11 +15,6 @@ public class RepositorioDocumentoImpl implements RepositorioDocumento {
 
 	private List<Documento> documentos = new ArrayList<>();
 	
-	
-	public List<Documento> getDocumentos() {
-		return documentos;
-	}
-
 	@Override
 	public void altaDocumento(Documento documento) {
 		
@@ -58,6 +53,9 @@ public class RepositorioDocumentoImpl implements RepositorioDocumento {
 		return documento.getCodigo().equals(codigo);
 	}
 
+	public List<Documento> getDocumentos() {
+		return documentos;
+	}
 }
 
 

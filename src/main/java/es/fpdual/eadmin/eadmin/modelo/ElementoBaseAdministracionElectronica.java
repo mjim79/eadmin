@@ -4,10 +4,10 @@ import java.util.Date;
 
 public abstract  class ElementoBaseAdministracionElectronica {
 	
-	protected Integer codigo;
-	protected String nombre;
-	protected Date fechaCreacion;
-	protected Boolean publico;
+	protected final Integer codigo;
+	protected final String nombre;
+	protected final Date fechaCreacion;
+	protected final Boolean publico;
 	
 	public ElementoBaseAdministracionElectronica(Integer codigo, String nombre, Date fechaCreacion, Boolean publico) {
 		super();

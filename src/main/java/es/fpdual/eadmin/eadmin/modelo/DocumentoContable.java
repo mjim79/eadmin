@@ -5,8 +5,8 @@ import java.util.Date;
 
 public class DocumentoContable extends Documento {
 	
-	private BigDecimal importe;
-	private String nifInteresado;
+	private final BigDecimal importe;
+	private final String nifInteresado;
 	
 	public DocumentoContable(Integer codigo, String nombre, Date fechaCreacion, Boolean publico,
 			EstadoDocumento estado, BigDecimal importe, String nifInteresado) {
