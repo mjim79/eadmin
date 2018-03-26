@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.fpdual.eadmin.eadmin.modelo.Documento;
@@ -42,6 +43,15 @@ public class ControladorEadmin {
 		
 		return new ResponseEntity<List<Documento>>(servicioDocumento.obtenerTodosLosDocumentos(), HttpStatus.OK);
 		
+		
+	}
+	
+	@PostMapping(value="/eadmin/documentos/eliminar/{codigo}")
+	public ResponseEntity<?> eliminarDocumento(@PathVariable("codigo") Integer codigo) {
+		
+		this.servicioDocumento.eliminarDocumento(codigo);
+		
+		return new ResponseEntity<>(HttpStatus.OK);
 		
 	}
 
