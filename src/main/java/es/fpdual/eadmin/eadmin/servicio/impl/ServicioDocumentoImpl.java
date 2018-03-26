@@ -1,6 +1,7 @@
 package es.fpdual.eadmin.eadmin.servicio.impl;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,9 +22,14 @@ public class ServicioDocumentoImpl implements ServicioDocumento {
 	}
 	
 	@Override
-	public void altaDocumento(Documento documento) {
+	public Documento altaDocumento(Documento documento) {
 		
-		repositorioDocumento.altaDocumento(documento);
+		final Documento documentoModificado = 
+				obtenerDocumentoConFechaCreacionCorrecta(documento);
+		
+		repositorioDocumento.altaDocumento(documentoModificado);
+		
+		return documentoModificado;
 		
 	}
 
@@ -31,7 +37,7 @@ public class ServicioDocumentoImpl implements ServicioDocumento {
 	public Documento modificarDocumento(Documento documento) {
 		
 		final Documento documentoModificado = 
-				obtenerDocumentoConFechaCorrecta(documento);
+				obtenerDocumentoConFechaUltimaActualizacionCorrecta(documento);
 		
 		repositorioDocumento.modificarDocumento(documentoModificado);
 		
@@ -44,11 +50,30 @@ public class ServicioDocumentoImpl implements ServicioDocumento {
 		repositorioDocumento.eliminarDocumento(codigo);
 		
 	}
+	
+	@Override
+	public Documento obtenerDocumentoPorCodigo(Integer codigo) {
+		return this.repositorioDocumento.obtenerDocumentoPorCodigo(codigo);
+	}
+	
+	@Override
+	public List<Documento> obtenerTodosLosDocumentos() {
+		return repositorioDocumento.obtenerTodosLosDocumentos();
+	}
 
-	protected Documento obtenerDocumentoConFechaCorrecta(Documento documento) {		
+
+	protected Documento obtenerDocumentoConFechaCreacionCorrecta(Documento documento) {		
 		
-		return new DocumentoBuilder().clonar(documento).
+		return new DocumentoBuilder()
+				.clonar(documento).
 				conFechaCreacion(dameFechaActual()).
+				construir();
+	}
+	
+	protected Documento obtenerDocumentoConFechaUltimaActualizacionCorrecta(Documento documento) {
+		return new DocumentoBuilder().
+				clonar(documento).
+				conFechaUltimaActualizacion(dameFechaActual()).
 				construir();
 	}
 
@@ -56,6 +81,7 @@ public class ServicioDocumentoImpl implements ServicioDocumento {
 
 		return new Date();
 	}
+
 
 	
 }

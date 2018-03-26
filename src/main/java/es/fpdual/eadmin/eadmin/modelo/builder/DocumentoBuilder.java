@@ -10,11 +10,12 @@ public class DocumentoBuilder {
 	protected Integer codigo;
 	protected String nombre;
 	protected Date fechaCreacion;
+	protected Date fechaUltimaActualizacion;
 	protected Boolean publico;
 	protected EstadoDocumento estado;
 	
 	public Documento construir() {
-		return new Documento(codigo, nombre, fechaCreacion, publico, estado);
+		return new Documento(codigo, nombre, fechaCreacion, fechaUltimaActualizacion, publico, estado);
 	}
 	
 	public DocumentoBuilder conCodigo(Integer codigo){
@@ -32,6 +33,11 @@ public class DocumentoBuilder {
 		return this;
 	}
 	
+	public DocumentoBuilder conFechaUltimaActualizacion(Date fechaUltimaActualizacion) {
+		this.fechaUltimaActualizacion = fechaUltimaActualizacion;
+		return this;
+	}
+	
 	public DocumentoBuilder conPublico (boolean publico) {
 		this.publico = publico;
 		return this;
@@ -46,8 +52,11 @@ public class DocumentoBuilder {
 		this.codigo = documento.getCodigo();
 		this.nombre = documento.getNombre();
 		this.fechaCreacion = documento.getFechaCreacion();
+		this.fechaUltimaActualizacion = documento.getFechaUltimaActualizacion();
 		this.publico = documento.getPublico();
 		this.estado = documento.getEstado();
 		return this;
 	}
+
+	
 }

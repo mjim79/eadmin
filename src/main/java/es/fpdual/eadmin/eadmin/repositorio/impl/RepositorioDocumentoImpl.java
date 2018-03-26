@@ -37,16 +37,35 @@ public class RepositorioDocumentoImpl implements RepositorioDocumento {
 
 	@Override
 	public void eliminarDocumento(Integer codigo) {
+	
+		final Documento documentoAEliminar =  this.obtenerDocumentoPorCodigo(codigo);
+		
+		if (Objects.nonNull(documentoAEliminar)) {
+			documentos.remove(documentoAEliminar);
+		}
+		
+	}
+	
+	@Override
+	public Documento obtenerDocumentoPorCodigo(Integer codigo) {
+		
 		Optional<Documento> documentoEncontrado = 
 				documentos.stream().
 					filter(d -> tieneIgualCodigo(d, codigo)).
 					findFirst();
-
+		
 		if (documentoEncontrado.isPresent()) {
-			documentos.remove(documentoEncontrado.get());
+			return documentoEncontrado.get();
 		}
 		
+		return null;
 	}
+	
+	@Override
+	public List<Documento> obtenerTodosLosDocumentos() {
+		return this.documentos;
+	}
+
 	
 	protected boolean tieneIgualCodigo(Documento documento, Integer codigo)	  {
 		
@@ -56,6 +75,9 @@ public class RepositorioDocumentoImpl implements RepositorioDocumento {
 	public List<Documento> getDocumentos() {
 		return documentos;
 	}
+
+
+
 }
 
 

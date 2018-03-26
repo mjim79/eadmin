@@ -10,6 +10,7 @@ import org.junit.Test;
 public class ElementoBaseAdministracionElectronicaTest {
 	
 	private static final Date FECHA_CREACION = new Date();
+	private static final Date FECHA_ULTIMA_MODIFICACION = new Date();
 	private static final String NOMBRE_DOCUMENTO = "nombre";
 	private static final boolean DOCUMENTO_PUBLICO = true;
 	private static final Integer CODIGO_DOCUMENTO = 1;
@@ -17,8 +18,8 @@ public class ElementoBaseAdministracionElectronicaTest {
 	class ElementoBaseAdministracionElectronicaFake extends ElementoBaseAdministracionElectronica {
 
 		public ElementoBaseAdministracionElectronicaFake(Integer codigo, String nombre, Date fechaCreacion,
-				Boolean publico) {
-			super(codigo, nombre, fechaCreacion, publico);
+				Date fechaUltimaModificacion, Boolean publico) {
+			super(codigo, nombre, fechaCreacion, fechaUltimaModificacion, publico);
 			
 		}
 		
@@ -29,7 +30,7 @@ public class ElementoBaseAdministracionElectronicaTest {
 	@Before
 	public void inicializarCadaTest() {
 		elementoBaseAdministracionElectronica = 
-			new ElementoBaseAdministracionElectronicaFake(CODIGO_DOCUMENTO, NOMBRE_DOCUMENTO, FECHA_CREACION, DOCUMENTO_PUBLICO);
+			new ElementoBaseAdministracionElectronicaFake(CODIGO_DOCUMENTO, NOMBRE_DOCUMENTO, FECHA_CREACION, FECHA_ULTIMA_MODIFICACION, DOCUMENTO_PUBLICO);
 	}
 	
 	@Test
@@ -45,7 +46,7 @@ public class ElementoBaseAdministracionElectronicaTest {
 	@Test
 	public void deberiaDevolverTrueSiTienenIgualCodigo() {
 		
-		final Documento elementoBaseAdministracionElectronica2 = new Documento(CODIGO_DOCUMENTO, null, null, null, null);
+		final Documento elementoBaseAdministracionElectronica2 = new Documento(CODIGO_DOCUMENTO, null, null, null, null, null);
 		
 		final Boolean resultado = elementoBaseAdministracionElectronica2.equals(elementoBaseAdministracionElectronica);
 		
@@ -55,7 +56,7 @@ public class ElementoBaseAdministracionElectronicaTest {
 	@Test
 	public void deberiaDevolverFalseSiNoTienenIgualCodigo() {
 		
-		final Documento elementoBaseAdministracionElectronica2 = new Documento(5, null, null, null, null);
+		final Documento elementoBaseAdministracionElectronica2 = new Documento(5, null, null, null, null, null);
 		
 		final Boolean resultado = elementoBaseAdministracionElectronica2.equals(elementoBaseAdministracionElectronica);
 		

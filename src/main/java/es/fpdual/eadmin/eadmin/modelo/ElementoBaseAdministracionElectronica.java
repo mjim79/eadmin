@@ -7,13 +7,15 @@ public abstract  class ElementoBaseAdministracionElectronica {
 	protected final Integer codigo;
 	protected final String nombre;
 	protected final Date fechaCreacion;
+	protected final Date fechaUltimaActualizacion;
 	protected final Boolean publico;
 	
-	public ElementoBaseAdministracionElectronica(Integer codigo, String nombre, Date fechaCreacion, Boolean publico) {
+	public ElementoBaseAdministracionElectronica(Integer codigo, String nombre, Date fechaCreacion, Date fechaUltimaActualizacion, Boolean publico) {
 		super();
 		this.codigo = codigo;
 		this.nombre = nombre;
 		this.fechaCreacion = fechaCreacion;
+		this.fechaUltimaActualizacion = fechaUltimaActualizacion;
 		this.publico = publico;
 	}
 
@@ -28,6 +30,11 @@ public abstract  class ElementoBaseAdministracionElectronica {
 	public Date getFechaCreacion() {
 		return fechaCreacion;
 	}
+	
+	public Date getFechaUltimaActualizacion() {
+		return fechaUltimaActualizacion;
+	}
+
 
 	public Boolean getPublico() {
 		return publico;

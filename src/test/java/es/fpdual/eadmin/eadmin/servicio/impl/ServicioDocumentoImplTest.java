@@ -19,7 +19,7 @@ import es.fpdual.eadmin.eadmin.servicio.ServicioDocumento;
 
 public class ServicioDocumentoImplTest {
 	
-	private ServicioDocumento servicioDocumento;
+	private ServicioDocumentoImpl servicioDocumento;
 	
 	private static final Documento DOCUMENTO = mock(Documento.class);
 	
@@ -28,15 +28,19 @@ public class ServicioDocumentoImplTest {
 	@Before
 	public void inicializarEnCadaTest() {
 		
-		this.servicioDocumento = new ServicioDocumentoImpl(repositorioDocumento);
+		this.servicioDocumento = spy(new ServicioDocumentoImpl(repositorioDocumento));
 	}
 	
 	@Test
 	public void deberiaAlmacenarUnDocumento() {
 		
+		final Documento documentoModificado = mock(Documento.class);
+		
+		doReturn(documentoModificado).when(this.servicioDocumento).obtenerDocumentoConFechaCreacionCorrecta(DOCUMENTO);
+		
 		this.servicioDocumento.altaDocumento(DOCUMENTO);
 		
-		verify(this.repositorioDocumento).altaDocumento(DOCUMENTO);
+		verify(this.repositorioDocumento).altaDocumento(documentoModificado);
 		
 	
 	}
@@ -44,16 +48,14 @@ public class ServicioDocumentoImplTest {
 	@Test
 	public void deberiaModificarDocumento() {
 		
-		when(DOCUMENTO.getCodigo()).thenReturn(1);
-		when(DOCUMENTO.getFechaCreacion()).thenReturn(new Date(1/1/2018));
-		when(DOCUMENTO.getNombre()).thenReturn("nombre");
+		final Documento documentoModificado = mock(Documento.class);
 		
-		final Documento resultado = this.servicioDocumento.modificarDocumento(DOCUMENTO);
+		doReturn(documentoModificado).when(this.servicioDocumento).obtenerDocumentoConFechaUltimaActualizacionCorrecta(DOCUMENTO);
 		
-		verify(this.repositorioDocumento).modificarDocumento(any());
-		assertEquals(Integer.valueOf(1), resultado.getCodigo());
-		assertEquals("nombre", resultado.getNombre());
-		assertNotEquals(resultado.getFechaCreacion(), DOCUMENTO.getFechaCreacion());
+		this.servicioDocumento.modificarDocumento(DOCUMENTO);
+		
+		verify(this.repositorioDocumento).modificarDocumento(documentoModificado);
+		
 	}
 	
 	@Test
@@ -65,5 +67,7 @@ public class ServicioDocumentoImplTest {
 		
 		verify(this.repositorioDocumento).eliminarDocumento(1);
 	}
+	
+
 
 }

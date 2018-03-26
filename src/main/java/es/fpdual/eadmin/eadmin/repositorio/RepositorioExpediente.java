@@ -7,11 +7,13 @@ public interface RepositorioExpediente {
 	
 	void altaExpediente(Expediente expediente);
 
-	void modificarExpediente(Expediente expediente);
+	Expediente modificarExpediente(Expediente expediente);
 
 	void eliminarExpediente(Integer codigoExpediente);
 	
-	void asociarDocumentoAlExpediente(Integer codigoExpediente, Documento documento);
+	Expediente asociarDocumentoAlExpediente(Integer codigoExpediente, Documento documento);
 	
-	void desasociarDocumentoDelExpediente (Integer codigoExpediente, Integer codigoDocumento);
+	Expediente desasociarDocumentoDelExpediente (Integer codigoExpediente, Integer codigoDocumento);
+	
+	Expediente obtenerExpedientePorCodigo(Integer codigoExpediente);
 }

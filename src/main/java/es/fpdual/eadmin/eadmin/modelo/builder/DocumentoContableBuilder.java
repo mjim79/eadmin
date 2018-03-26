@@ -11,7 +11,7 @@ public class DocumentoContableBuilder extends DocumentoBuilder {
 	
 	public DocumentoContable construir() {
 		return new DocumentoContable(this.codigo, this.nombre, 
-				this.fechaCreacion, this.publico, this.estado, 
+				this.fechaCreacion, this.fechaUltimaActualizacion, this.publico, this.estado, 
 				this.importe, this.nifInteresado);
 	}
 	

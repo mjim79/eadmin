@@ -9,9 +9,9 @@ public class Expediente extends ElementoBaseAdministracionElectronica{
 	private final EstadoExpediente estado;
 	private final List<Documento> documentos;
 
-	public Expediente(Integer codigo, String nombre, Date fechaCreacion, Date fechaArchivado, Boolean publico,
+	public Expediente(Integer codigo, String nombre, Date fechaCreacion, Date fechaUltimaActualizacion, Date fechaArchivado, Boolean publico,
 			EstadoExpediente estado, List<Documento> documentos) {
-		super(codigo, nombre, fechaCreacion, publico);
+		super(codigo, nombre, fechaCreacion, fechaUltimaActualizacion, publico);
 		this.fechaArchivado = fechaArchivado;
 		this.estado = estado;
 		this.documentos = documentos;
@@ -30,7 +30,9 @@ public class Expediente extends ElementoBaseAdministracionElectronica{
 
 	@Override
 	public int hashCode() {
-		return codigo.hashCode() + nombre.hashCode() + fechaCreacion.hashCode() + fechaArchivado.hashCode() + publico.hashCode() + estado.hashCode();
+		return codigo.hashCode() + nombre.hashCode() + fechaCreacion.hashCode() + 
+				fechaArchivado.hashCode() + fechaUltimaActualizacion.hashCode() + 
+				publico.hashCode() + estado.hashCode();
 	}
 
 	@Override
@@ -38,9 +40,13 @@ public class Expediente extends ElementoBaseAdministracionElectronica{
 		
 		if (obj instanceof Expediente) {
 			final Expediente expediente = (Expediente) obj;
-			return expediente.getCodigo().equals(this.codigo) && expediente.getNombre().equals(this.nombre)
-						&& expediente.getFechaCreacion().equals(this.fechaCreacion) && expediente.getFechaArchivado().equals(this.fechaArchivado)
-						&& expediente.getPublico().equals(this.publico) && expediente.getEstado().equals(this.estado);
+			return expediente.getCodigo().equals(this.codigo) 
+						&& expediente.getNombre().equals(this.nombre)
+						&& expediente.getFechaCreacion().equals(this.fechaCreacion)
+						&& expediente.getFechaUltimaActualizacion().equals(this.fechaUltimaActualizacion)
+						&& expediente.getFechaArchivado().equals(this.fechaArchivado)
+						&& expediente.getPublico().equals(this.publico) 
+						&& expediente.getEstado().equals(this.estado);
 		}
 
 		return false;

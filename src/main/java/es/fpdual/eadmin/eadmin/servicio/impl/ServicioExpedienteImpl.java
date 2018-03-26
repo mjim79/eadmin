@@ -26,8 +26,8 @@ public class ServicioExpedienteImpl implements ServicioExpediente{
 
 	@Override
 	public Expediente modificarExpediente(Expediente expediente) {
-		this.repositorioExpediente.modificarExpediente(expediente);
-		return expediente;
+		return this.repositorioExpediente.modificarExpediente(expediente);
+		
 	}
 
 	@Override
@@ -38,14 +38,14 @@ public class ServicioExpedienteImpl implements ServicioExpediente{
 
 	@Override
 	public Expediente asociarDocumentoAlExpediente(Integer codigoExpediente, Documento documento) {
-		this.repositorioExpediente.asociarDocumentoAlExpediente(codigoExpediente, documento);
-		return null;
+		return this.repositorioExpediente.asociarDocumentoAlExpediente(codigoExpediente, documento);
+		
 	}
 
 	@Override
 	public Expediente desasociarDocumentoDelExpediente(Integer codigoExpediente, Integer codigoDocumento) {
-		this.repositorioExpediente.desasociarDocumentoDelExpediente(codigoExpediente, codigoDocumento);
-		return null;
+		return this.repositorioExpediente.desasociarDocumentoDelExpediente(codigoExpediente, codigoDocumento);
+		
 	}
 
 }
