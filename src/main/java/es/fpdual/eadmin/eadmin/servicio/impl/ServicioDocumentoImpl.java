@@ -25,7 +25,7 @@ public class ServicioDocumentoImpl implements ServicioDocumento {
 	public Documento altaDocumento(Documento documento) {
 		
 		final Documento documentoModificado = 
-				obtenerDocumentoConFechaCreacionCorrecta(documento);
+		this.obtenerDocumentoConFechaCreacionCorrecta(documento);
 		
 		repositorioDocumento.altaDocumento(documentoModificado);
 		

@@ -16,7 +16,7 @@ public class CargarDatosIniciales implements ApplicationRunner {
 
 	private final RepositorioDocumento repositorioDocumento;
 	
-	private static final Date fecha = new Date();
+	private static final Date FECHA = new Date();
 	
 	@Autowired
 	public CargarDatosIniciales(RepositorioDocumento repositorioDocumento) {
@@ -25,9 +25,9 @@ public class CargarDatosIniciales implements ApplicationRunner {
 	
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
-		this.repositorioDocumento.altaDocumento(new Documento(1, "documento1", fecha, fecha, true, EstadoDocumento.ACTIVO ));
-		this.repositorioDocumento.altaDocumento(new Documento(2, "documento2", fecha, fecha, false, EstadoDocumento.ACTIVO ));
-		this.repositorioDocumento.altaDocumento(new Documento(3, "documento3", fecha, fecha, true, EstadoDocumento.ACTIVO ));
+		this.repositorioDocumento.altaDocumento(new Documento(1, "documento1", FECHA, FECHA, true, EstadoDocumento.ACTIVO ));
+		this.repositorioDocumento.altaDocumento(new Documento(2, "documento2", FECHA, FECHA, false, EstadoDocumento.ACTIVO ));
+		this.repositorioDocumento.altaDocumento(new Documento(3, "documento3", FECHA, FECHA, true, EstadoDocumento.ACTIVO ));
 		
 	}
 	

@@ -3,7 +3,9 @@ package es.fpdual.eadmin.eadmin.servicio.impl;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.print.attribute.standard.DateTimeAtCompleted;
 
@@ -36,11 +38,15 @@ public class ServicioDocumentoImplTest {
 		
 		final Documento documentoModificado = mock(Documento.class);
 		
-		doReturn(documentoModificado).when(this.servicioDocumento).obtenerDocumentoConFechaCreacionCorrecta(DOCUMENTO);
+		doReturn(documentoModificado).
+		when(this.servicioDocumento).
+		obtenerDocumentoConFechaCreacionCorrecta(DOCUMENTO);
 		
-		this.servicioDocumento.altaDocumento(DOCUMENTO);
+		final Documento resultado = 
+				this.servicioDocumento.altaDocumento(DOCUMENTO);
 		
 		verify(this.repositorioDocumento).altaDocumento(documentoModificado);
+		assertSame(resultado, documentoModificado);
 		
 	
 	}
@@ -68,6 +74,34 @@ public class ServicioDocumentoImplTest {
 		verify(this.repositorioDocumento).eliminarDocumento(1);
 	}
 	
-
+	@Test
+	public void deberiaObtenerDocumentoPorCodigo() {
+		
+		when(this.repositorioDocumento.
+				obtenerDocumentoPorCodigo(1)).
+				thenReturn(DOCUMENTO);
+		
+		final Documento resultado = 
+				this.servicioDocumento.
+				obtenerDocumentoPorCodigo(1);
+		
+		assertSame(resultado, DOCUMENTO);
+	}
+	
+	@Test
+	
+	public void deberiaDevolverTodosLosDocumentos() {
+		
+		final List<Documento> documentos = new ArrayList<>(); 
+		
+		when(repositorioDocumento.
+				obtenerTodosLosDocumentos()).
+				thenReturn(documentos);
+		
+		final List<Documento> resultado = 
+				this.servicioDocumento.obtenerTodosLosDocumentos();
+		
+		assertSame(resultado, documentos);
+	}
 
 }
