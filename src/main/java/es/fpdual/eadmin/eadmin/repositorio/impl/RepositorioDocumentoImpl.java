@@ -1,83 +1,51 @@
 package es.fpdual.eadmin.eadmin.repositorio.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
-import org.springframework.stereotype.Repository;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.stereotype.*;
 
-import es.fpdual.eadmin.eadmin.modelo.Documento;
-import es.fpdual.eadmin.eadmin.repositorio.RepositorioDocumento;
+import es.fpdual.eadmin.eadmin.mapper.*;
+import es.fpdual.eadmin.eadmin.modelo.*;
+import es.fpdual.eadmin.eadmin.repositorio.*;
 
 @Repository
 public class RepositorioDocumentoImpl implements RepositorioDocumento {
 
-	private List<Documento> documentos = new ArrayList<>();
-	
-	@Override
-	public void altaDocumento(Documento documento) {
-		
-		if (documentos.contains(documento)) {
-			throw new IllegalArgumentException("El documento ya existe");
-		}
-		
-		documentos.add(documento);
-	}
+    private DocumentoMapper mapper;
 
-	@Override
-	public void modificarDocumento(Documento documento) {
-		
-		if (!documentos.contains(documento)) {
-			throw new IllegalArgumentException("El documento a modificar no existe");
-		}
-		
-		documentos.set(documentos.indexOf(documento), documento);
-	}
+    @Autowired
+    public RepositorioDocumentoImpl(DocumentoMapper mapper) {
+        this.mapper = mapper;
+    }
 
-	@Override
-	public void eliminarDocumento(Integer codigo) {
-	
-		final Documento documentoAEliminar =  this.obtenerDocumentoPorCodigo(codigo);
-		
-		if (Objects.nonNull(documentoAEliminar)) {
-			documentos.remove(documentoAEliminar);
-		}
-		
-	}
-	
-	@Override
-	public Documento obtenerDocumentoPorCodigo(Integer codigo) {
-		
-		Optional<Documento> documentoEncontrado = 
-				documentos.stream().
-					filter(d -> tieneIgualCodigo(d, codigo)).
-					findFirst();
-		
-		if (documentoEncontrado.isPresent()) {
-			return documentoEncontrado.get();
-		}
-		
-		return null;
-	}
-	
-	@Override
-	public List<Documento> obtenerTodosLosDocumentos() {
-		return this.documentos;
-	}
+    @Override
+    public void altaDocumento(Documento documento) {
+        this.mapper.insertarDocumento(documento);
+    }
 
-	
-	protected boolean tieneIgualCodigo(Documento documento, Integer codigo)	  {
-		
-		return documento.getCodigo().equals(codigo);
-	}
+    @Override
+    public void modificarDocumento(Documento documento) {
+        final int modificado = this.mapper.modificarDocumento(documento);
 
-	public List<Documento> getDocumentos() {
-		return documentos;
-	}
+        if (modificado == 0) {
+            throw new IllegalArgumentException("No se encuentra el documento");
+        }
+    }
 
+    @Override
+    public void eliminarDocumento(Integer codigo) {
+        this.mapper.eliminarDocumento(codigo);
+    }
 
+    @Override
+    public Documento obtenerDocumentoPorCodigo(Integer codigo) {
+        return this.mapper.seleccionarDocumento(codigo);
+    }
+
+    @Override
+    public List<Documento> obtenerTodosLosDocumentos() {
+        return this.mapper.seleccionarTodosLosDocumentos();
+    }
 
 }
-
-

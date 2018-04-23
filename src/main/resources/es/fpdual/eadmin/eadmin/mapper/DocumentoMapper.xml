@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="es.fpdual.eadmin.eadmin.mapper.DocumentoMapper">
+
+    <insert id="insertarDocumento">
+    <selectKey keyProperty="id" resultType="int" order="BEFORE">
+        <include refid="obtenerMaximo"/>
+    </selectKey>
+        INSERT INTO Elemento (
+            tipo,
+            codigo,
+            nombre, 
+            fechaCreacion, 
+            fechaUltimaActualizacion, 
+            esPublico,             
+            estadoDocumento) 
+        VALUES (
+            1,
+            #{id},
+            #{documento.nombre},
+            #{documento.fechaCreacion},
+            #{documento.fechaUltimaActualizacion},
+            #{documento.publico},
+            #{documento.estado.codigo})
+    </insert>
+    
+    <delete id="eliminarDocumento">
+        DELETE FROM Elemento WHERE codigo = #{codigo}
+    </delete>
+    
+    <update id="modificarDocumento">
+        UPDATE Elemento 
+        SET nombre = #{documento.nombre},
+           fechaCreacion = #{documento.fechaCreacion},
+           fechaUltimaActualizacion = #{documento.fechaUltimaActualizacion},
+           esPublico = #{documento.publico},
+           estadoDocumento = #{documento.estado.codigo}
+        WHERE codigo = #{documento.codigo} 
+    </update>
+    
+    <select id="seleccionarDocumento" resultMap="documentoResultMap">
+        <include refid="baseSelectDocumento"/> and codigo = #{codigo}
+    </select>
+    
+    <select id="seleccionarTodosLosDocumentos" resultMap="documentoResultMap">
+        <include refid="baseSelectDocumento"/>
+    </select>
+    
+    <sql id="baseSelectDocumento">
+        SELECT codigo, 
+            nombre, 
+            fechaCreacion, 
+            fechaUltimaActualizacion, 
+            esPublico,             
+            estadoDocumento
+        FROM Elemento
+        WHERE Tipo = 1 
+    </sql>
+    
+    <resultMap type="es.fpdual.eadmin.eadmin.modelo.Documento" id="documentoResultMap">
+        <constructor>
+            <idArg column="codigo" javaType="Integer"/>
+            <arg column="nombre" javaType="String"/>
+            <arg column="fechaCreacion" javaType="Date"/>
+            <arg column="fechaUltimaActualizacion" javaType="Date"/>
+            <arg column="esPublico" javaType="Boolean"/>
+            <arg column="estadoDocumento" javaType="es.fpdual.eadmin.eadmin.modelo.EstadoDocumento"/>
+        </constructor>
+    </resultMap>
+    
+    <select id="obtenerSiguienteIdentificador" resultType="Integer">
+        <include refid="obtenerMaximo"/>
+    </select>
+    
+    <sql id="obtenerMaximo">
+    SELECT ISNULL(MAX(codigo),0) + 1 FROM Elemento
+    </sql>
+</mapper>
